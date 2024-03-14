@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking</title>
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="book">
+        <form action="">
+          <h1>Book Table</h1>
+          <div class="Name">
+            <label for="name">Name: </label>
+            <input type="text" placeholder="Full Name" id="name" required/>
+          </div>
+
+          <div class="Time">
+            <label for="time">Reservation Time: </label>
+            <input type="time" placeholder="Time" id="time" required/>
+          </div>
+
+          <div class="Number">
+            <label for="totalmember">Total Members: </label>
+            <input type="number" placeholder="Total Members" id="members" required/>
+          </div>
+
+          <div class="Contact">
+            <label for="contact">Contact Number: </label>
+            <input type="number" placeholder="Contact Number" id="contact" required/>
+          </div>
+
+          <button type="submit" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+      import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+      const firebaseConfig = {
+          apiKey: "AIzaSyA8jN6d8Sr13Q2SHN81K2uOWWQEHrkWr9U",
+          authDomain: "restaurant-1122.firebaseapp.com",
+          projectId: "restaurant-1122",
+          storageBucket: "restaurant-1122.appspot.com",
+          messagingSenderId: "340851354922",
+          appId: "1:340851354922:web:f899564c42e9e40630c253"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      document.getElementById("submit").addEventListener('click', function(e){
+          e.preventDefault();
+          set(ref(db, 'bookings/' + document.getElementById("name").value),{
+              name: document.getElementById("name").value,
+              time: document.getElementById("time").value,
+              members: document.getElementById("members").value,
+              contact: document.getElementById("contact").value,
+          })
+      alert("Booking Sucessfull!");
+    })
+  </script>
+  </body>
+</html>
